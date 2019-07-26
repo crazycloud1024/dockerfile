@@ -1,12 +1,33 @@
+import random
 from locust import HttpLocust, TaskSet, task
 
 
 class Task(TaskSet):
-    @task
+
+#     def on_start(self):
+#         self.index()
+ #        self.login()
+
+ #    def on_stop(self):
+ #        self.logot()
+
+ #    def login(self):
+ #        self.client.get("/info")
+
+ #    def logot(self):
+ #        self.client.post("/logot", {"username":"test", "password": "test"})
+
+    @task(2)
     def index(self):
         self.client.get("/")
 
+    @task(1)
+    def info(self):
+        self.client.get("/info")
+
 class WebsiteUser(HttpLocust):
     task_set = Task
-    min_wait = 2000
-    max_wait = 3000
+    wait_function = lambda self: random.expovariate(1)*1000 
+    # min_wait = 2000
+    # max_wait = 4000
+
