@@ -1,0 +1,4 @@
+[Openstack-Rocky]
+name=Openstack-Rocky
+baseurl=https://mirrors.cloud.tencent.com/centos/7/cloud/x86_64/openstack-rocky/
+gpgcheck=0
