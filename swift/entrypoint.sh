@@ -13,9 +13,3 @@ sudo chown -R ${USER}:${USER} /var/run/swift
 # **Make sure to include the trailing slash after /srv/$x/**
 for x in {1..4}; do sudo chown -R ${USER}:${USER} /srv/$x/; done
 
-cd $HOME; git clone https://github.com/openstack/python-swiftclient.git
-cd $HOME/python-swiftclient; sudo python setup.py develop; cd -
-cd $HOME/python-swiftclient; sudo pip install -r requirements.txt; sudo python setup.py develop; cd -
-git clone https://github.com/openstack/swift.git
-cd $HOME/swift; sudo pip install --no-binary cryptography -r requirements.txt; sudo python setup.py develop; cd -
-cd $HOME/swift; sudo pip install -r test-requirements.txt

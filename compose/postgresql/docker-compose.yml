@@ -1,0 +1,66 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  postgresql-master:
+    container_name: postgresql-master
+    image: 'bitnami/postgresql'
+    networks:
+      - app-tier
+    ports:
+      - '5432'
+    volumes:
+      - 'postgresql_master_data:/bitnami/postgresql'
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=master
+      - POSTGRESQL_REPLICATION_USER=pguser1
+      - POSTGRESQL_REPLICATION_PASSWORD=123456
+      - POSTGRESQL_POSTGRES_PASSWORD=123456
+      - POSTGRESQL_USERNAME=pguser
+      - POSTGRESQL_PASSWORD=123456
+      - POSTGRESQL_DATABASE=my_db
+      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
+      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=1
+    volumes:
+      - '/path/to/postgresql-persistence:/bitnami/postgresql'
+
+  postgresql-slave:
+    container_name: postgresql-slave
+    image: 'bitnami/postgresql'
+    networks:
+      - app-tier
+    depends_on:
+      - postgresql-master
+    ports:
+      - '5432'
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=slave
+      - POSTGRESQL_REPLICATION_USER=pguser1
+      - POSTGRESQL_REPLICATION_PASSWORD=123456
+      - POSTGRESQL_MASTER_HOST=postgresql-master
+      - POSTGRESQL_MASTER_PORT=5432
+      - POSTGRESQL_PASSWORD=123456
+
+  postgresql-slave2:
+    container_name: postgresql-slave2
+    image: 'bitnami/postgresql'
+    networks:
+      - app-tier
+    depends_on:
+      - postgresql-master
+    ports:
+      - '5432'
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=slave
+      - POSTGRESQL_REPLICATION_USER=pguser1
+      - POSTGRESQL_REPLICATION_PASSWORD=123456
+      - POSTGRESQL_MASTER_HOST=postgresql-master
+      - POSTGRESQL_MASTER_PORT=5432
+      - POSTGRESQL_PASSWORD=123456
+
+volumes:
+  postgresql_master_data:
+    driver: local

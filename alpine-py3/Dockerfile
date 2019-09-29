@@ -34,15 +34,14 @@ RUN apk add --no-cache --update \
     wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py && \
     python /tmp/get-pip.py && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
     pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/ && \
-    pip install --no-cache-dir pipenv autopep8 setuptools
-RUN update-ca-certificates
-RUN rm -rf /var/cache/apk/*
-RUN mkdir /var/run/sshd && mkdir -p /code
+    pip install --no-cache-dir pipenv autopep8 setuptools -i https://mirrors.aliyun.com/pypi/simple/ 
+RUN update-ca-certificates && \
+    rm -rf /var/cache/apk/* && \
+    mkdir /var/run/sshd && \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-ENV PYENV_ROOT="/root/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
-ADD ./entrypoint.sh /app
-WORKDIR /app
+ENV PIPENV_VENV_IN_PROJECT=1
 VOLUME /code
-ENTRYPOINT ["./entrypoint.sh"]
+WORKDIR /code
 #CMD /usr/sbin/crond -f

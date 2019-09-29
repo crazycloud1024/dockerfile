@@ -1,11 +1,13 @@
 FROM centos:centos7.6.1810
 
 ADD ./yum.repos.d/ /etc/yum.repos.d/
-RUN yum makecache && yum install -y curl gcc memcached rsync sqlite xfsprogs git-core \
+RUN yum install -y curl gcc memcached rsync sqlite xfsprogs git-core \
                  libffi-devel xinetd liberasurecode-devel \
                  openssl-devel python-setuptools \
                  python-coverage python-devel python-nose \
                  pyxattr python-eventlet \
+                 python-swiftclient s3cmd \
+                 openstack-swift* \
                  python-greenlet python-paste-deploy \
                  python-netifaces python-pip python-dns \
                  python-mock && \
