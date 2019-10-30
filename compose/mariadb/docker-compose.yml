@@ -1,0 +1,19 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: 'mariadb'
+    networks:
+      - app-tier
+    ports:
+      - '3306'
+    volumes:
+      - /tmp/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=1

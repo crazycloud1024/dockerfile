@@ -70,7 +70,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./default.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "81:81"
+      - "8080:80"
     command: [nginx, '-g', 'daemon off;']
     
 
