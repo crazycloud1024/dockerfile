@@ -12,8 +12,6 @@ services:
       - app-tier
     ports:
       - '5432:5432'
-    volumes:
-      - 'postgresql_master_data:/bitnami/postgresql'
     environment:
       - POSTGRESQL_REPLICATION_MODE=master
       - POSTGRESQL_REPLICATION_USER=pguser1
@@ -25,7 +23,7 @@ services:
       - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
       - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=1
     volumes:
-      - '/path/to/postgresql-persistence:/bitnami/postgresql'
+      - '/tmp/pgsql/data:/bitnami/postgresql'
 
   postgresql-slave:
     container_name: postgresql-slave
@@ -60,7 +58,3 @@ services:
       - POSTGRESQL_MASTER_HOST=postgresql-master
       - POSTGRESQL_MASTER_PORT=5432
       - POSTGRESQL_PASSWORD=123456
-
-volumes:
-  postgresql_master_data:
-    driver: local
