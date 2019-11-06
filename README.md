@@ -4,6 +4,7 @@
 所有dockerfile和docker-compose文件都测试通过,可直接安装docker和docker-compose后,构建运行
 #### 安装docker步骤
 - Centos
+    ```
     # step 1: 安装必要的一些系统工具
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
     # Step 2: 添加软件源信息
@@ -33,8 +34,9 @@
     # 注意：在某些版本之后，docker-ce安装出现了其他依赖包，如果安装失败的话请关注错误信息。例如 docker-ce 17.03 之后，需要先安装 docker-ce-selinux。
     # yum list docker-ce-selinux- --showduplicates | sort -r
     # sudo yum -y install docker-ce-selinux-[VERSION]
-    
+    ```    
 - Ubuntu
+    ```
     # step 1: 安装必要的一些系统工具
     sudo apt-get update
     sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
@@ -54,3 +56,4 @@
     #   docker-ce | 17.03.0~ce-0~ubuntu-xenial | http://mirrors.aliyun.com/docker-ce/linux/ubuntu xenial/stable amd64 Packages
     # Step 2: 安装指定版本的Docker-CE: (VERSION 例如上面的 17.03.1~ce-0~ubuntu-xenial)
     # sudo apt-get -y install docker-ce=[VERSION]
+    ```
