@@ -12,6 +12,7 @@ services:
       - app-tier
     ports:
       - '5432:5432'
+    restart: always
     environment:
       - POSTGRESQL_REPLICATION_MODE=master
       - POSTGRESQL_REPLICATION_USER=pguser1
@@ -34,6 +35,7 @@ services:
       - postgresql-master
     ports:
       - '5433:5432'
+    restart: always
     environment:
       - POSTGRESQL_REPLICATION_MODE=slave
       - POSTGRESQL_REPLICATION_USER=pguser1
@@ -45,6 +47,7 @@ services:
   swift:
     container_name: swift
     image: 'swift'
+    restart: always
     networks:
       - app-tier
     ports:
@@ -58,6 +61,7 @@ services:
   redis:
     container_name: redis-master
     image: 'redis'
+    restart: always
     networks:
       - app-tier
     ports:
