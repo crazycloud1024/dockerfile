@@ -1,6 +1,7 @@
 FROM bouncestorage/swift-aio
 
 COPY ./sources.list /etc/apt/
+COPY ./proxy-server.conf /etc/swift
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends \
         vim \
         wget \

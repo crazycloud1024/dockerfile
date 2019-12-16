@@ -54,7 +54,6 @@ services:
       - '8080:8080'
     volumes:
       - '/tmp/swift/data:/swift/nodes'
-      - '/git/dockerfile/compose/swift-psql-redis/proxy-server.conf:/etc/swift/proxy-server.conf'
       - '/git/some_practice/pghlm:/usr/lib/python2.7/pghlm'
       - '/tmp/pgconf.cfg:/tmp/pgconf.cfg'
 

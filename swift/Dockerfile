@@ -5,9 +5,13 @@ RUN yum install -y curl gcc memcached rsync sqlite xfsprogs git-core \
                  libffi-devel xinetd liberasurecode-devel \
                  openssl-devel python-setuptools \
                  python-coverage python-devel python-nose \
-                 pyxattr python-eventlet \
+                 python-simplejson pyxattr python-eventlet \
                  python-swiftclient s3cmd \
-                 openstack-swift* \
+                 openstack-swift-doc \
+                 openstack-swift-account \
+                 openstack-swift-container \ 
+                 openstack-swift-object \
+                 openstack-swift-proxy \
                  python-greenlet python-paste-deploy \
                  python-netifaces python-pip python-dns \
                  python-mock && \
@@ -15,6 +19,6 @@ RUN yum install -y curl gcc memcached rsync sqlite xfsprogs git-core \
                  pip install -U setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple && \
                  pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-ADD entrypoint.sh /opt
-RUN chmod +x /opt/entrypoint.sh
-ENTRYPOINT ["/opt/entrypoint.sh"]
+#ADD entrypoint.sh /opt
+#RUN chmod +x /opt/entrypoint.sh
+#ENTRYPOINT ["/opt/entrypoint.sh"]

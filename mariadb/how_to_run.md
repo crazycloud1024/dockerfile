@@ -1,4 +1,4 @@
-# Methods to run this image ( mariadb:10.2.0 )
+# Methods to run this image ( mariadb)
 
 ## Introduce for this image:
 > This image is for openstack services , building from the official image mariadb:10.2 , appending scripts to creating db / clusters

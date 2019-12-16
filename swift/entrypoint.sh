@@ -12,4 +12,3 @@ sudo mkdir -p /srv/1/node/sdb1 /srv/1/node/sdb5 \
 sudo chown -R ${USER}:${USER} /var/run/swift
 # **Make sure to include the trailing slash after /srv/$x/**
 for x in {1..4}; do sudo chown -R ${USER}:${USER} /srv/$x/; done
-
