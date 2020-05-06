@@ -1,0 +1,25 @@
+version: '2.3'
+services:
+  drone-server:
+    image: drone/drone
+    container_name: drone-server
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./drone-data:/data
+    env_file:
+      - ./server/env.conf
+    ports:
+      - 12000:80
+  drone-runner:
+    image: drone/agent
+    container_name: drone-runner
+    env_file:
+      - ./runner/env.conf
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 13000:3000
+    depends_on:
+      - drone-server
