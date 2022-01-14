@@ -1,0 +1,39 @@
+version: '3.2'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - '19090:9090'
+    command:
+      - '--config.file=/config/prometheus.yml'
+      # 支持热更新
+      - '--web.enable-lifecycle'
+    volumes:
+      - './prometheus/config:/config'
+      - './prometheus/data/prometheus:/prometheus/data'
+    user: "0"
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - './grafana/data/grafana:/var/lib/grafana'
+      - './grafana/config:/usr/share/grafana/conf'
+    ports:
+      - '13000:3000'
+    user: "0"
+    environment:
+      - TERM=linux
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-piechart-panel,grafana-polystat-panel
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: Myalertmanager
+    hostname: alertmanager
+    restart: always
+    ports:
+      - '19093:9093'
+    volumes:
+      - './prometheus/config:/config'
+      - './prometheus/data/alertmanager:/alertmanager/data'
+    command:
+      - '--config.file=/config/alertmanager.yml'
