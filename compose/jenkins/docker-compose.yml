@@ -1,0 +1,26 @@
+version: '2.1'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  jenkins:
+    image: 'jenkins/jenkins:lts'
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    volumes:
+      - '/usr/lib64/libltdl.so.7:/usr/lib/libltdl.so.7'
+      - '/usr/bin/docker:/usr/bin/docker'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/var/lib/jenkins:/var/jenkins_home'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      # - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - app-tier
+
+volumes:
+  mariadb_data:
+    driver: local

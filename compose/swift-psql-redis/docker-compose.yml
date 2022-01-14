@@ -5,48 +5,48 @@ networks:
     driver: bridge
 
 services:
-  postgresql-master:
-    container_name: postgresql-master
-    image: 'bitnami/postgresql'
-    networks:
-      - app-tier
-    ports:
-      - '5432:5432'
-    restart: always
-    environment:
-      - POSTGRESQL_REPLICATION_MODE=master
-      - POSTGRESQL_REPLICATION_USER=pguser1
-      - POSTGRESQL_REPLICATION_PASSWORD=123456
-      - POSTGRESQL_POSTGRES_PASSWORD=123456
-      - POSTGRESQL_USERNAME=swift
-      - POSTGRESQL_PASSWORD=123456
-      - POSTGRESQL_DATABASE=swift
-      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
-      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=1
-    volumes:
-      - '/tmp/pgsql/data:/bitnami/postgresql'
+  #postgresql-master:
+  #  container_name: postgresql-master
+  #  image: 'bitnami/postgresql'
+  #  networks:
+  #    - app-tier
+  #  ports:
+  #    - '5432:5432'
+  #  restart: always
+  #  environment:
+  #    - POSTGRESQL_REPLICATION_MODE=master
+  #    - POSTGRESQL_REPLICATION_USER=pguser1
+  #    - POSTGRESQL_REPLICATION_PASSWORD=123456
+  #    - POSTGRESQL_POSTGRES_PASSWORD=123456
+  #    - POSTGRESQL_USERNAME=swift
+  #    - POSTGRESQL_PASSWORD=123456
+  #    - POSTGRESQL_DATABASE=swift
+  #    - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
+  #    - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=1
+  #  volumes:
+  #    - '/tmp/pgsql/data:/bitnami/postgresql'
 
-  postgresql-slave:
-    container_name: postgresql-slave
-    image: 'bitnami/postgresql'
-    networks:
-      - app-tier
-    depends_on:
-      - postgresql-master
-    ports:
-      - '5433:5432'
-    restart: always
-    environment:
-      - POSTGRESQL_REPLICATION_MODE=slave
-      - POSTGRESQL_REPLICATION_USER=pguser1
-      - POSTGRESQL_REPLICATION_PASSWORD=123456
-      - POSTGRESQL_MASTER_HOST=postgresql-master
-      - POSTGRESQL_MASTER_PORT=5432
-      - POSTGRESQL_PASSWORD=123456
-  
+  #postgresql-slave:
+  #  container_name: postgresql-slave
+  #  image: 'bitnami/postgresql'
+  #  networks:
+  #    - app-tier
+  #  depends_on:
+  #    - postgresql-master
+  #  ports:
+  #    - '5433:5432'
+  #  restart: always
+  #  environment:
+  #    - POSTGRESQL_REPLICATION_MODE=slave
+  #    - POSTGRESQL_REPLICATION_USER=pguser1
+  #    - POSTGRESQL_REPLICATION_PASSWORD=123456
+  #    - POSTGRESQL_MASTER_HOST=postgresql-master
+  #    - POSTGRESQL_MASTER_PORT=5432
+  #    - POSTGRESQL_PASSWORD=123456
+
   swift:
     container_name: swift
-    image: 'swift'
+    build: ./swift
     restart: always
     networks:
       - app-tier
@@ -57,11 +57,11 @@ services:
       - '/git/some_practice/pghlm:/usr/lib/python2.7/pghlm'
       - '/tmp/pgconf.cfg:/tmp/pgconf.cfg'
 
-  redis:
-    container_name: redis-master
-    image: 'redis'
-    restart: always
-    networks:
-      - app-tier
-    ports:
-      - '6379:6379'
+  #redis:
+  #  container_name: redis-master
+  #  image: 'redis'
+  #  restart: always
+  #  networks:
+  #    - app-tier
+  #  ports:
+  #    - '6379:6379'
